@@ -24,6 +24,8 @@ class ViewEvent extends Event
     const EVENT_RENDERER = 'renderer';
     const EVENT_RENDERER_POST = 'renderer.post';
     const EVENT_RESPONSE = 'response';
+    const EVENT_RENDER = 'render';
+    const EVENT_RENDER_POST = 'render.post';
     /**#@-*/
 
     /**

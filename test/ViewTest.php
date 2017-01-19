@@ -307,6 +307,40 @@ class ViewTest extends TestCase
         $this->assertTrue($test->flag);
     }
 
+    public function testCanTriggerBeforeRenderEvent()
+    {
+        $this->attachTestStrategies();
+        $this->view->getEventManager()->attach(ViewEvent::EVENT_RENDER, function ($e) {
+            $e->getModel()->setVariable('bar', 'baz');
+        });
+
+        $this->model->setVariable('foo', 'bar');
+        $this->view->render($this->model);
+        $this->assertEquals(
+            [
+                'foo' => 'bar',
+                'bar' => 'baz',
+            ],
+            $this->model->getVariables()->getArrayCopy()
+        );
+    }
+
+    public function testCanTriggerRenderPostEvent()
+    {
+        $this->attachTestStrategies();
+        $this->view->getEventManager()->attach(ViewEvent::EVENT_RENDER_POST, function ($e) {
+            $e->setResult('prefix-' . $e->getResult() . '-suffix');
+        });
+
+        $expected = "prefix-Zend\View\Variables::__set_state(array(\n   'foo' => 'bar',\n))-suffix";
+        $this->model->setVariable('foo', 'bar');
+        $this->view->render($this->model);
+        $this->assertEquals($expected, $this->result->content);
+
+        $this->model->setOption('has_parent', true);
+        $this->assertEquals($expected, $this->view->render($this->model));
+    }
+
     /**
      * Test the view model can be swapped out
      *

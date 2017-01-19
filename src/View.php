@@ -204,7 +204,14 @@ class View implements EventManagerAwareInterface
         $event->setModel($model);
         $event->setRenderer($renderer);
 
+        $event->setName(ViewEvent::EVENT_RENDER);
+        $events->triggerEvent($event);
+
         $rendered = $renderer->render($model);
+
+        $event->setName(ViewEvent::EVENT_RENDER_POST);
+        $event->setResult($rendered);
+        $events->triggerEvent($event);
 
         // If this is a child model, return the rendered content; do not
         // invoke the response strategy.
@@ -213,7 +220,6 @@ class View implements EventManagerAwareInterface
             return $rendered;
         }
 
-        $event->setResult($rendered);
         $event->setName(ViewEvent::EVENT_RESPONSE);
 
         $events->triggerEvent($event);
