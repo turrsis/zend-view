@@ -70,6 +70,7 @@ use Zend\View\Variables;
  * @method \Zend\View\Helper\Navigation\Links links($container = null)
  * @method \Zend\View\Helper\Navigation\Menu menu($container = null)
  * @method \Zend\View\Helper\Navigation\Sitemap sitemap($container = null)
+ * @method \Zend\View\Helper\Assets assets($group, $asset, $options = [], $priority = 1)
  */
 class PhpRenderer implements Renderer, TreeRendererInterface
 {
