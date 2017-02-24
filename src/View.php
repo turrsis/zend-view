@@ -217,7 +217,7 @@ class View implements EventManagerAwareInterface
         // invoke the response strategy.
         $options = $model->getOptions();
         if (array_key_exists('has_parent', $options) && $options['has_parent']) {
-            return $rendered;
+            return $event->getResult();
         }
 
         $event->setName(ViewEvent::EVENT_RESPONSE);
