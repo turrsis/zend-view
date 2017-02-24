@@ -135,6 +135,8 @@ class HelperPluginManager extends AbstractPluginManager
         'viewmodel'           => Helper\ViewModel::class,
         'viewModel'           => Helper\ViewModel::class,
         'ViewModel'           => Helper\ViewModel::class,
+        'Container'           => Helper\Container::class,
+        'container'           => Helper\Container::class,
     ];
 
     /**
@@ -183,6 +185,7 @@ class HelperPluginManager extends AbstractPluginManager
         Helper\ServerUrl::class           => InvokableFactory::class,
         Helper\Url::class                 => InvokableFactory::class,
         Helper\ViewModel::class           => InvokableFactory::class,
+        Helper\Container::class           => InvokableFactory::class,
 
         // v2 canonical FQCNs
 
